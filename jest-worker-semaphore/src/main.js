@@ -31,7 +31,10 @@ async function main() {
     exposedMethods: ['run'],
     numWorkers: WORKER_COUNT,
     enableWorkerThreads: true,
-  })
+  });
+
+  worker.getStdout().pipe(process.stdout);
+  worker.getStderr().pipe(process.stderr);
   const sem = new Semaphore(WORKER_COUNT);
 
   await pipeline(
